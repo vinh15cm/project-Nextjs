@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+"use client"
+import React, { createContext, useState, ReactNode } from 'react';
 
 // Xác định kiểu dữ liệu cho AuthContext
 interface AuthContextType {
@@ -8,9 +9,14 @@ interface AuthContextType {
     register: (email: string, password: string) => void;
 }
 
+// Tạo AuthContext với kiểu dữ liệu hoặc undefined
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+interface AuthProviderProps {
+    children: ReactNode;  // Kiểu của children là ReactNode
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = (email: string, password: string) => {

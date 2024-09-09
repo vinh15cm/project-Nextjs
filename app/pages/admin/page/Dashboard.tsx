@@ -9,6 +9,9 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import AddUser from '../costumer/AddUser/page';
+import UserList from '../costumer/userList/page';
+import { UserProvider } from '../costumer/UserContext/page';
 
 // Đăng ký các scale và thành phần cần thiết
 ChartJS.register(
@@ -49,6 +52,17 @@ const Dashboard = () => {
                     <Line data={data} />
                 </div>
             </div>
+            <UserProvider>
+                <div className="container mx-auto p-8">
+                    <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+                    {/* Thêm user */}
+                    <AddUser />
+
+                    {/* Hiển thị danh sách user */}
+                    <UserList />
+                </div>
+            </UserProvider>
         </div>
     );
 };

@@ -1,13 +1,20 @@
+"use client"
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './admin/AuthContext';
-import LoginPage from './admin/login/Login';
-import RegisterPage from './admin/register/Register';
-import AdminPage from './admin/page/AdminPage';
+import { AuthProvider, AuthContext } from './pages/admin/AuthContext';
+import LoginPage from './pages/admin/login/page';
+import RegisterPage from './pages/admin/register/page';
+import AdminPage from './pages/admin/page/page';
 
-const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const authContext = useContext(AuthContext);
+
+  // Kiểm tra xem AuthContext có tồn tại và đã xác thực hay chưa
+  if (!authContext || !authContext.isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 };
 
 function App() {
